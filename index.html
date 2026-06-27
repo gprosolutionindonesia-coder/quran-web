@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Al-Qur'an</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Qur'an Web</title>
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<h1>Al-Qur'an Online</h1>
+<header>
+    <h2>📖 Al-Qur'an Web</h2>
+</header>
 
-<img
-src="Medina1/data/N/0001.gif"
-style="width:100%;max-width:700px;display:block;margin:auto;">
+<div class="viewer">
+
+    <button id="prev">◀ Sebelumnya</button>
+
+    <img
+        id="page"
+        src="Medina1/data/N/0001.gif"
+        alt="Halaman Quran">
+
+    <button id="next">Berikutnya ▶</button>
+
+</div>
+
+<script src="js/app.js"></script>
 
 </body>
 </html>
