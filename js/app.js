@@ -7,18 +7,20 @@ const pageNumber = document.getElementById("pageNumber");
 
 function updatePages(){
 
+    // Halaman GANJIL di kiri
     leftPage.src =
+    "Medina1/data/N/" +
+    String(page + 1).padStart(4,"0") +
+    ".gif";
+
+    // Halaman GENAP di kanan
+    rightPage.src =
     "Medina1/data/N/" +
     String(page).padStart(4,"0") +
     ".gif";
 
-    rightPage.src =
-    "Medina1/data/N/" +
-    String(page+1).padStart(4,"0") +
-    ".gif";
-
     pageNumber.innerHTML =
-    "Halaman " + page + " - " + (page+1);
+    "Halaman " + page + " - " + (page + 1);
 
 }
 
