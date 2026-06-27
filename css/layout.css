@@ -1,0 +1,12 @@
+.sidebar{
+    background:white;
+    height:100vh;
+    overflow:auto;
+    border-right:1px solid #ddd;
+    padding:15px;
+}
+
+.viewer{
+    text-align:center;
+    padding:20px;
+}
