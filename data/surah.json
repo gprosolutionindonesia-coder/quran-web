@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "Al-Fatihah",
+    "page": 2
+  },
+  {
+    "id": 2,
+    "name": "Al-Baqarah",
+    "page": 4
+  },
+  {
+    "id": 3,
+    "name": "Ali Imran",
+    "page": 50
+  },
+  {
+    "id": 4,
+    "name": "An-Nisa",
+    "page": 77
+  },
+  {
+    "id": 5,
+    "name": "Al-Ma'idah",
+    "page": 106
+  }
+]

@@ -6,6 +6,15 @@
 .book{
 
     display:flex;
+    .book{
+
+    display:flex;
+
+    width:100%;
+
+    max-width:1400px;
+
+    margin:auto;
 
     justify-content:center;
 
@@ -23,9 +32,9 @@
 
     position:relative;
 
-    width:48%;
+    flex:1;
 
-    max-width:520px;
+    max-width:none;
 
     transform-style:preserve-3d;
 
@@ -35,9 +44,13 @@
 
 .page img{
 
+    width:100%;
+
+    height:auto;
+
     display:block;
 
-    width:100%;
+}
 
     background:#fff;
 

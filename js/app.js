@@ -4,7 +4,7 @@
 // ======================================
 
 // Halaman genap pertama
-let page = 2;
+window.page = 2;
 
 // Ambil elemen
 const leftPage = document.getElementById("leftPage");
@@ -23,7 +23,7 @@ function toArabicNumber(num) {
 }
 
 // Update viewer
-function updatePages() {
+window.updatePages = function () {
 
     // ============================
     // Mushaf
