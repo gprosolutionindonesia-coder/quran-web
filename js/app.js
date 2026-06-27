@@ -1,38 +1,51 @@
+// ======================================
 // Quran Web GPRO
-// Viewer RTL Mushaf
+// Viewer Mushaf RTL
+// ======================================
 
+// Halaman genap pertama
 let page = 2;
 
-// Elemen
+// Ambil elemen
 const leftPage = document.getElementById("leftPage");
 const rightPage = document.getElementById("rightPage");
 const pageNumber = document.getElementById("pageNumber");
 
-// Konversi angka Latin ke angka Arab
+// Konversi angka Latin -> Arab
 function toArabicNumber(num) {
 
     const arabic = ["٠","١","٢","٣","٤","٥","٦","٧","٨","٩"];
 
-    return num.toString().replace(/\d/g, d => arabic[d]);
+    return num.toString().replace(/\d/g, function(d){
+        return arabic[d];
+    });
 
 }
 
-// Update tampilan
+// Update viewer
 function updatePages() {
 
-    // Halaman kiri = ganjil
+    // ============================
+    // Mushaf
+    // KIRI  = GANJIL
+    // KANAN = GENAP
+    // ============================
+
     leftPage.src =
         "Medina1/data/N/" +
         String(page + 1).padStart(4, "0") +
         ".gif";
 
-    // Halaman kanan = genap
     rightPage.src =
         "Medina1/data/N/" +
         String(page).padStart(4, "0") +
         ".gif";
 
+    // ============================
     // Nomor halaman
+    // tampil: ٢ | ٣
+    // ============================
+
     pageNumber.innerHTML =
         toArabicNumber(page) +
         " | " +
@@ -43,10 +56,13 @@ function updatePages() {
 // Tampilkan pertama kali
 updatePages();
 
+// ============================
 // Tombol Berikutnya
-document.getElementById("next").onclick = function () {
+// ============================
 
-    if (page < 622) {
+document.getElementById("next").addEventListener("click", function () {
+
+    if (page <= 622) {
 
         page += 2;
 
@@ -54,10 +70,13 @@ document.getElementById("next").onclick = function () {
 
     }
 
-};
+});
 
+// ============================
 // Tombol Sebelumnya
-document.getElementById("prev").onclick = function () {
+// ============================
+
+document.getElementById("prev").addEventListener("click", function () {
 
     if (page > 2) {
 
@@ -67,4 +86,6 @@ document.getElementById("prev").onclick = function () {
 
     }
 
-};
+});
+
+console.log("Quran Web GPRO Viewer Loaded");
