@@ -1,4 +1,3 @@
-alert("APP.JS BERHASIL DIMUAT");
 let page = 2;
 
 const leftPage = document.getElementById("leftPage");
