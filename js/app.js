@@ -1,32 +1,47 @@
-let page = 1;
+let page = 2;
 
-const img = document.getElementById("page");
+const leftPage = document.getElementById("leftPage");
+const rightPage = document.getElementById("rightPage");
+const pageNumber = document.getElementById("pageNumber");
 
-document.getElementById("next").onclick = function(){
+function updatePages(){
 
-    if(page < 624){
+    leftPage.src =
+    "Medina1/data/N/" +
+    String(page).padStart(4,"0") +
+    ".gif";
 
-        page++;
+    rightPage.src =
+    "Medina1/data/N/" +
+    String(page+1).padStart(4,"0") +
+    ".gif";
 
-        img.src =
-        "Medina1/data/N/" +
-        String(page).padStart(4,"0") +
-        ".gif";
+    pageNumber.innerHTML =
+    "Halaman " + page + " - " + (page+1);
+
+}
+
+updatePages();
+
+document.getElementById("next").onclick=function(){
+
+    if(page<622){
+
+        page+=2;
+
+        updatePages();
 
     }
 
 }
 
-document.getElementById("prev").onclick = function(){
+document.getElementById("prev").onclick=function(){
 
-    if(page > 1){
+    if(page>2){
 
-        page--;
+        page-=2;
 
-        img.src =
-        "Medina1/data/N/" +
-        String(page).padStart(4,"0") +
-        ".gif";
+        updatePages();
 
     }
 
