@@ -4,6 +4,19 @@
 // ======================================
 
 // Halaman genap pertama
+// ======================================
+// Mapping Mushaf -> GIF
+// ======================================
+
+let pageMap = [];
+
+async function loadPageMap() {
+
+    const response = await fetch("data/pageMap.json");
+
+    pageMap = await response.json();
+
+}
 window.page = 2;
 
 // Ambil elemen
@@ -24,6 +37,11 @@ function toArabicNumber(num) {
 
 // Update viewer
 window.updatePages = function () {
+    const map = pageMap.find(p => p.mushaf === page);
+
+if (!map) return;
+
+const gif = map.gif;
 
     // ============================
     // Mushaf
@@ -33,12 +51,12 @@ window.updatePages = function () {
 
     leftPage.src =
         "Medina1/data/N/" +
-        String(page + 1).padStart(4, "0") +
+        String(gif + 1).padStart(4,"0") +
         ".gif";
 
     rightPage.src =
         "Medina1/data/N/" +
-        String(page).padStart(4, "0") +
+        String(gif).padStart(4,"0") +
         ".gif";
 
     // ============================
@@ -54,7 +72,11 @@ window.updatePages = function () {
 }
 
 // Tampilkan pertama kali
-updatePages();
+loadPageMap().then(() => {
+
+    updatePages();
+
+});
 
 // ============================
 // Tombol Berikutnya
