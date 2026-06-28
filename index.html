@@ -33,6 +33,22 @@
 
 <hr>
 
+<div class="btn-group w-100 mb-3">
+
+<button
+id="showSurah"
+class="btn btn-primary">
+📖 Surat
+</button>
+
+<button
+id="showJuz"
+class="btn btn-outline-primary">
+📚 Juz
+</button>
+
+</div>
+
 <input
 id="searchSurah"
 class="form-control"
@@ -41,8 +57,15 @@ placeholder="Cari Surat...">
 
 <br>
 
-<div class="list-group" id="surahList">
+<div
+class="list-group"
+id="surahList">
+</div>
 
+<div
+class="list-group"
+id="juzList"
+style="display:none;">
 </div>
 
 </div>
@@ -102,9 +125,11 @@ alt="Halaman kanan">
 </div>
 <script src="js/app.js"></script>
 <script src="js/surah.js"></script>
+<script src="js/juz.js"></script>
 
 <script>
 loadSurah();
+loadJuz();
 </script>
 
 </body>
