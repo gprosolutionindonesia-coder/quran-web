@@ -1,28 +1,28 @@
 [
   {
-  "id": 1,
-  "name": "Al-Fatihah",
-  "page": 2,
-  "audio": "001.mp3"
-}
+    "id": 1,
+    "name": "Al-Fatihah",
+    "page": 2,
+    "audio": "001.mp3"
+  },
   {
-  "id": 2,
-  "name": "Al-Baqarah",
-  "page": 4,
-  "audio": "002.mp3"
-}
+    "id": 2,
+    "name": "Al-Baqarah",
+    "page": 4,
+    "audio": "002.mp3"
+  },
   {
-  "id": 3,
-  "name": "Ali Imran",
-  "page": 50,
-  "audio": "003.mp3"
-}
+    "id": 3,
+    "name": "Ali Imran",
+    "page": 50,
+    "audio": "003.mp3"
+  },
   {
     "id": 4,
     "name": "An-Nisa",
     "page": 77,
     "audio": "004.mp3"
-}
+  },
   {
     "id": 5,
     "name": "Al-Ma'idah",
