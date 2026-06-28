@@ -20,7 +20,7 @@ async function loadSurah() {
 
         a.className = "list-group-item list-group-item-action";
 
-        a.innerHTML = item.id + ". " + item.latin;
+        a.innerHTML = item.id + ". " + item.name;
 
         a.addEventListener("click", function(e){
 
