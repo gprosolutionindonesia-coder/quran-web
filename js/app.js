@@ -89,3 +89,26 @@ document.getElementById("prev").addEventListener("click", function () {
 });
 
 console.log("Quran Web GPRO Viewer Loaded");
+// ======================================
+// Bookmark Halaman
+// ======================================
+
+// Simpan bookmark
+document.getElementById("bookmark").addEventListener("click", function () {
+
+    localStorage.setItem("bookmarkPage", page);
+
+    alert("Bookmark disimpan di halaman " + page);
+
+});
+
+// Buka bookmark saat aplikasi dijalankan
+const savedPage = localStorage.getItem("bookmarkPage");
+
+if (savedPage !== null) {
+
+    page = parseInt(savedPage);
+
+    updatePages();
+
+}
