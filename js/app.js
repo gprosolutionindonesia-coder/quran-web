@@ -89,7 +89,6 @@ document.getElementById("prev").addEventListener("click", function () {
 });
 
 console.log("Quran Web GPRO Viewer Loaded");
-
 console.log("MASUK KE MODUL BOOKMARK");
 
 // ======================================
