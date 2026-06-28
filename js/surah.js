@@ -52,11 +52,14 @@ function renderSurah(data){
 
             page = item.page;
 
-            if(page % 2 !== 0){
-                page--;
-            }
+if(page % 2 !== 0){
+    page--;
+}
 
-            updatePages();
+updatePages();
+
+// Ganti audio sesuai surat
+setAudio(item.audio);
 
         };
 

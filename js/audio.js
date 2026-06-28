@@ -5,20 +5,35 @@
 
 const audio = new Audio();
 
-// Audio contoh (Al-Fatihah)
-audio.src =
-"https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/001.mp3";
+let currentAudio = "";
 
-// Tombol Play
-document.getElementById("playAudio").addEventListener("click", function(){
+// Play
+document.getElementById("playAudio").addEventListener("click", function () {
 
-    audio.play();
+    if (currentAudio !== "") {
+
+        audio.src = currentAudio;
+        audio.play();
+
+    } else {
+
+        alert("Pilih surat terlebih dahulu.");
+
+    }
 
 });
 
-// Tombol Pause
-document.getElementById("pauseAudio").addEventListener("click", function(){
+// Pause
+document.getElementById("pauseAudio").addEventListener("click", function () {
 
     audio.pause();
 
 });
+
+// Ganti audio sesuai surat
+window.setAudio = function(file){
+
+    currentAudio =
+    "https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/" + file;
+
+};
