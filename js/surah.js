@@ -1,18 +1,42 @@
 // ======================================
 // Quran Web GPRO
-// Modul Daftar Surat
+// Modul Daftar Surat + Live Search
 // ======================================
+
+let allSurah = [];
 
 async function loadSurah() {
 
     const response = await fetch("data/surah.json");
-    const surah = await response.json();
+    allSurah = await response.json();
+
+    renderSurah(allSurah);
+
+    const search = document.getElementById("searchSurah");
+
+    search.addEventListener("keyup", function(){
+
+        const keyword = this.value.toLowerCase();
+
+        const result = allSurah.filter(function(item){
+
+            return item.name.toLowerCase().includes(keyword);
+
+        });
+
+        renderSurah(result);
+
+    });
+
+}
+
+function renderSurah(data){
 
     const list = document.getElementById("surahList");
 
     list.innerHTML = "";
 
-    surah.forEach(item => {
+    data.forEach(function(item){
 
         const a = document.createElement("a");
 
@@ -22,20 +46,19 @@ async function loadSurah() {
 
         a.innerHTML = item.id + ". " + item.name;
 
-        a.addEventListener("click", function(e){
+        a.onclick = function(e){
 
             e.preventDefault();
 
             page = item.page;
 
-            // Viewer selalu mulai dari halaman genap
             if(page % 2 !== 0){
                 page--;
             }
 
             updatePages();
 
-        });
+        };
 
         list.appendChild(a);
 
