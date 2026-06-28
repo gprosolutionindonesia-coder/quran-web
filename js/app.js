@@ -114,3 +114,30 @@ if (savedPage !== null) {
     updatePages();
 
 }
+// ======================================
+// Zoom Mushaf
+// ======================================
+
+let zoom = 1;
+
+document.getElementById("zoomIn").addEventListener("click", function () {
+
+    zoom += 0.1;
+
+    document.querySelector(".book").style.transform =
+        "scale(" + zoom + ")";
+
+});
+
+document.getElementById("zoomOut").addEventListener("click", function () {
+
+    if (zoom > 0.5) {
+
+        zoom -= 0.1;
+
+        document.querySelector(".book").style.transform =
+            "scale(" + zoom + ")";
+
+    }
+
+});
