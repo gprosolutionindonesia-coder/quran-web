@@ -5,36 +5,22 @@
 
 window.Quran = {
 
-    // ==========================
-    // Mushaf
-    // ==========================
-
     page: 2,
 
     zoom: 1,
 
     totalPages: 604,
 
-    gifOffset: 3,
-
-    // ==========================
-    // Audio
-    // ==========================
-
     audio: new Audio(),
 
     currentAudio: "",
-
-    // ==========================
-    // Bookmark
-    // ==========================
 
     bookmarkKey: "bookmarkPage"
 
 };
 
 // ======================================
-// Konversi Angka Latin → Arab
+// Angka Arab
 // ======================================
 
 window.toArabicNumber = function(num){
@@ -53,11 +39,19 @@ window.toArabicNumber = function(num){
 };
 
 // ======================================
-// Konversi Halaman Mushaf → GIF
+// Konversi Mushaf → GIF
 // ======================================
 
 window.getGifPage = function(page){
 
-    return page + Quran.gifOffset;
+    switch(page){
+
+        case 2: return 2;
+        case 4: return 4;
+
+        default:
+            return page;
+
+    }
 
 };

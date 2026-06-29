@@ -17,6 +17,16 @@ window.updatePages = function () {
     const gif = getGifPage(Quran.page);
 
     // ==========================
+    // DEBUG
+    // ==========================
+
+    console.log("----------------------------");
+    console.log("Mushaf Page :", Quran.page);
+    console.log("GIF Page    :", gif);
+    console.log("Left GIF    :", gif + 1);
+    console.log("Right GIF   :", gif);
+
+    // ==========================
     // Halaman kiri (ganjil)
     // ==========================
 
@@ -51,6 +61,10 @@ window.updatePages = function () {
 
 window.openPage = function(page){
 
+    console.log("================================");
+    console.log("openPage() dipanggil");
+    console.log("Page dari surah :", page);
+
     if(page < 2){
         page = 2;
     }
@@ -63,6 +77,8 @@ window.openPage = function(page){
         page--;
     }
 
+    console.log("Page setelah koreksi :", page);
+
     Quran.page = page;
 
     updatePages();
@@ -73,4 +89,6 @@ window.openPage = function(page){
 // Render pertama
 // ======================================
 
-updatePages();console.log("viewer.js loaded");
+updatePages();
+
+console.log("viewer.js loaded");
