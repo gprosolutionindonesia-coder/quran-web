@@ -1,165 +1,33 @@
 // ======================================
 // Quran Web GPRO
-// Viewer Mushaf RTL
+// App Engine v2
 // ======================================
 
-// Halaman genap pertama
-// ======================================
-// Mapping Mushaf -> GIF
-// ======================================
+console.clear();
 
-let pageMap = [];
-
-async function loadPageMap() {
-
-    const response = await fetch("data/pageMap.json");
-
-    pageMap = await response.json();
-
-}
-window.page = 2;
-
-// Ambil elemen
-const leftPage = document.getElementById("leftPage");
-const rightPage = document.getElementById("rightPage");
-const pageNumber = document.getElementById("pageNumber");
-
-// Konversi angka Latin -> Arab
-function toArabicNumber(num) {
-
-    const arabic = ["٠","١","٢","٣","٤","٥","٦","٧","٨","٩"];
-
-    return num.toString().replace(/\d/g, function(d){
-        return arabic[d];
-    });
-
-}
-
-// Update viewer
-window.updatePages = function () {
-    const map = pageMap.find(p => p.mushaf === page);
-
-if (!map) return;
-
-const gif = map.gif;
-
-    // ============================
-    // Mushaf
-    // KIRI  = GANJIL
-    // KANAN = GENAP
-    // ============================
-
-    leftPage.src =
-        "Medina1/data/N/" +
-        String(gif + 1).padStart(4,"0") +
-        ".gif";
-
-    rightPage.src =
-        "Medina1/data/N/" +
-        String(gif).padStart(4,"0") +
-        ".gif";
-
-    // ============================
-    // Nomor halaman
-    // tampil: ٢ | ٣
-    // ============================
-
-    pageNumber.innerHTML =
-        toArabicNumber(page) +
-        " | " +
-        toArabicNumber(page + 1);
-
-}
-
-// Tampilkan pertama kali
-loadPageMap().then(() => {
-
-    updatePages();
-
-});
-
-// ============================
-// Tombol Berikutnya
-// ============================
-
-document.getElementById("next").addEventListener("click", function () {
-
-    if (page <= 622) {
-
-        page += 2;
-
-        updatePages();
-
-    }
-
-});
-
-// ============================
-// Tombol Sebelumnya
-// ============================
-
-document.getElementById("prev").addEventListener("click", function () {
-
-    if (page > 2) {
-
-        page -= 2;
-
-        updatePages();
-
-    }
-
-});
-
-console.log("Quran Web GPRO Viewer Loaded");
-console.log("MASUK KE MODUL BOOKMARK");
+console.log("==================================");
+console.log("Quran Web GPRO v2");
+console.log("Application Starting...");
+console.log("==================================");
 
 // ======================================
-// Bookmark Halaman
+// Inisialisasi
 // ======================================
 
-// Simpan bookmark
-document.getElementById("bookmark").addEventListener("click", function () {
+window.addEventListener("load", function () {
 
-    localStorage.setItem("bookmarkPage", page);
+    // Load Bookmark terakhir
+    loadBookmark();
 
-    alert("Bookmark disimpan di halaman " + page);
+    console.log("Viewer Ready");
+    console.log("Bookmark Ready");
+    console.log("Navigation Ready");
+    console.log("Audio Ready");
+    console.log("Surah Ready");
+    console.log("Juz Ready");
 
-});
-
-// Buka bookmark saat aplikasi dijalankan
-const savedPage = localStorage.getItem("bookmarkPage");
-
-if (savedPage !== null) {
-
-    page = parseInt(savedPage);
-
-    updatePages();
-
-}
-// ======================================
-// Zoom Mushaf
-// ======================================
-
-let zoom = 1;
-
-document.getElementById("zoomIn").addEventListener("click", function () {
-
-    zoom += 0.1;
-
-    document.querySelector(".book").style.transform =
-        "scale(" + zoom + ")";
-
-});
-
-document.getElementById("zoomOut").addEventListener("click", function () {
-
-    if (zoom > 0.5) {
-
-        zoom -= 0.1;
-
-        document.querySelector(".book").style.transform =
-            "scale(" + zoom + ")";
-
-    }
+    console.log("==================================");
+    console.log("Quran Web GPRO Ready");
+    console.log("==================================");
 
 });

@@ -50,13 +50,7 @@ function renderSurah(data){
 
             e.preventDefault();
 
-            page = item.page;
-
-if(page % 2 !== 0){
-    page--;
-}
-
-updatePages();
+            openPage(item.page);
 
 // Ganti audio sesuai surat
 setAudio(item.audio);
