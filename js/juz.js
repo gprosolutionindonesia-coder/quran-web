@@ -12,7 +12,7 @@ async function loadJuz() {
 
     list.innerHTML = "";
 
-    juz.forEach(item => {
+    juz.forEach(function(item){
 
         const a = document.createElement("a");
 
@@ -22,20 +22,13 @@ async function loadJuz() {
 
         a.innerHTML = "Juz " + item.juz;
 
-        a.addEventListener("click", function (e) {
+        a.onclick = function(e){
 
             e.preventDefault();
 
-            page = item.page;
+            openPage(item.page);
 
-            // Viewer selalu mulai dari halaman genap
-            if (page % 2 !== 0) {
-                page--;
-            }
-
-            updatePages();
-
-        });
+        };
 
         list.appendChild(a);
 
@@ -47,12 +40,14 @@ async function loadJuz() {
 // Tombol Surat
 // ======================================
 
-document.getElementById("showSurah").onclick = function () {
+document.getElementById("showSurah").onclick = function(){
 
     document.getElementById("surahList").style.display = "";
+
     document.getElementById("juzList").style.display = "none";
 
     this.className = "btn btn-primary";
+
     document.getElementById("showJuz").className =
         "btn btn-outline-primary";
 
@@ -62,15 +57,15 @@ document.getElementById("showSurah").onclick = function () {
 // Tombol Juz
 // ======================================
 
-document.getElementById("showJuz").onclick = function () {
+document.getElementById("showJuz").onclick = function(){
 
     document.getElementById("surahList").style.display = "none";
+
     document.getElementById("juzList").style.display = "";
 
     this.className = "btn btn-primary";
+
     document.getElementById("showSurah").className =
         "btn btn-outline-primary";
 
 };
-
-loadJuz();

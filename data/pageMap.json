@@ -1,10 +1,7 @@
 [
-    { "mushaf": 3, "gif": 6 },
-    { "mushaf": 4, "gif": 7 },
-    { "mushaf": 5, "gif": 8 },
-    { "mushaf": 6, "gif": 9 },
-    { "mushaf": 7, "gif": 10 },
-    { "mushaf": 8, "gif": 11 },
-    { "mushaf": 9, "gif": 12 },
-    { "mushaf": 10, "gif": 13 }
+    { "mushaf": 2, "gif": 2 },
+    { "mushaf": 4, "gif": 4 },
+    { "mushaf": 50, "gif": 50 },
+    { "mushaf": 76, "gif": 76 },
+    { "mushaf": 106, "gif": 106 }
 ]
