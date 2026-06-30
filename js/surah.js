@@ -48,14 +48,14 @@ function renderSurah(data){
 
         a.onclick = function(e){
 
-            e.preventDefault();
+    e.preventDefault();
 
-            openPage(item.page);
+    openPage(item.page);
 
-// Ganti audio sesuai surat
-setAudio(item.audio);
+    // Ganti audio sesuai surat
+    setAudio(item.audio);
 
-        };
+};
 
         list.appendChild(a);
 
