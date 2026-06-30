@@ -8,6 +8,7 @@ let allSurah = [];
 async function loadSurah() {
 
     const response = await fetch("data/surah.json");
+
     allSurah = await response.json();
 
     renderSurah(allSurah);
@@ -48,17 +49,31 @@ function renderSurah(data){
 
         a.onclick = function(e){
 
-    e.preventDefault();
+            e.preventDefault();
 
-    openPage(item.page);
+            console.log("==============================");
+            console.log("Klik Surat :", item.name);
+            console.log("ID Surat   :", item.id);
+            console.log("Halaman    :", item.page);
+            console.log("Audio      :", item.audio);
 
-    // Ganti audio sesuai surat
-    setAudio(item.audio);
+            // Buka halaman mushaf
+            openPage(item.page);
 
-};
+            // Ganti audio
+            setAudio(item.audio);
+
+            // Muat terjemahan
+            loadTranslation(item.id);
+
+            console.log("loadTranslation dipanggil");
+
+        };
 
         list.appendChild(a);
 
     });
 
 }
+
+console.log("surah.js loaded");
