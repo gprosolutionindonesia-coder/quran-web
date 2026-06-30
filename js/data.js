@@ -1,26 +1,63 @@
 // ======================================
 // Quran Web GPRO
-// Data & Global State
+// Data Engine v2
+// ======================================
+
+// ======================================
+// Global State
 // ======================================
 
 window.Quran = {
 
+    // ==========================
+    // Viewer
+    // ==========================
+
     page: 2,
+    totalPages: 604,
+    gifOffset: 3,
+
+    // ==========================
+    // Navigation
+    // ==========================
+
+    surah: 1,
+    juz: 1,
+    ayah: 1,
+
+    // ==========================
+    // Viewer
+    // ==========================
 
     zoom: 1,
 
-    totalPages: 604,
+    // ==========================
+    // Audio
+    // ==========================
 
     audio: new Audio(),
-
     currentAudio: "",
 
-    bookmarkKey: "bookmarkPage"
+    // ==========================
+    // Bookmark
+    // ==========================
+
+    bookmarks: [],
+
+    bookmarkKey: "quran-bookmarks",
+
+    // ==========================
+    // History
+    // ==========================
+
+    history: [],
+
+    historyKey: "quran-history"
 
 };
 
 // ======================================
-// Angka Arab
+// Arabic Number
 // ======================================
 
 window.toArabicNumber = function(num){
@@ -39,19 +76,108 @@ window.toArabicNumber = function(num){
 };
 
 // ======================================
-// Konversi Mushaf → GIF
+// GIF Page
 // ======================================
 
 window.getGifPage = function(page){
 
-    switch(page){
+    return page + Quran.gifOffset;
 
-        case 2: return 2;
-        case 4: return 4;
+};
 
-        default:
-            return page;
+// ======================================
+// Bookmark
+// ======================================
+
+window.saveBookmarks = function(){
+
+    localStorage.setItem(
+
+        Quran.bookmarkKey,
+
+        JSON.stringify(Quran.bookmarks)
+
+    );
+
+};
+
+window.loadBookmarks = function(){
+
+    const data = localStorage.getItem(
+
+        Quran.bookmarkKey
+
+    );
+
+    if(data){
+
+        Quran.bookmarks = JSON.parse(data);
 
     }
 
 };
+
+// ======================================
+// History
+// ======================================
+
+window.addHistory = function(){
+
+    Quran.history.unshift({
+
+        page: Quran.page,
+
+        surah: Quran.surah,
+
+        juz: Quran.juz,
+
+        ayah: Quran.ayah,
+
+        time: new Date().toLocaleString()
+
+    });
+
+    if(Quran.history.length > 30){
+
+        Quran.history.pop();
+
+    }
+
+    localStorage.setItem(
+
+        Quran.historyKey,
+
+        JSON.stringify(Quran.history)
+
+    );
+
+};
+
+window.loadHistory = function(){
+
+    const data = localStorage.getItem(
+
+        Quran.historyKey
+
+    );
+
+    if(data){
+
+        Quran.history = JSON.parse(data);
+
+    }
+
+};
+
+// ======================================
+// Init
+// ======================================
+
+loadBookmarks();
+
+loadHistory();
+
+console.log("==================================");
+console.log("Quran Web GPRO");
+console.log("Data Engine v2 Loaded");
+console.log("==================================");

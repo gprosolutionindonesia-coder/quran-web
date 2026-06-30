@@ -1,39 +1,76 @@
 // ======================================
 // Quran Web GPRO
-// Modul Audio
+// Audio Engine v2
 // ======================================
 
-const audio = new Audio();
-
-let currentAudio = "";
-
+// ======================================
 // Play
+// ======================================
+
 document.getElementById("playAudio").addEventListener("click", function () {
 
-    if (currentAudio !== "") {
-
-        audio.src = currentAudio;
-        audio.play();
-
-    } else {
+    if (Quran.currentAudio === "") {
 
         alert("Pilih surat terlebih dahulu.");
 
+        return;
+
     }
 
+    Quran.audio.src = Quran.currentAudio;
+
+    Quran.audio.play();
+
 });
 
+// ======================================
 // Pause
+// ======================================
+
 document.getElementById("pauseAudio").addEventListener("click", function () {
 
-    audio.pause();
+    Quran.audio.pause();
 
 });
 
-// Ganti audio sesuai surat
-window.setAudio = function(file){
+// ======================================
+// Stop
+// ======================================
 
-    currentAudio =
-    "https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/" + file;
+window.stopAudio = function(){
+
+    Quran.audio.pause();
+
+    Quran.audio.currentTime = 0;
 
 };
+
+// ======================================
+// Set Audio
+// ======================================
+
+window.setAudio = function(file){
+
+    Quran.currentAudio =
+        "https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/" +
+        file;
+
+    console.log("Audio :", Quran.currentAudio);
+
+};
+
+// ======================================
+// Resume
+// ======================================
+
+window.resumeAudio = function(){
+
+    if(Quran.currentAudio !== ""){
+
+        Quran.audio.play();
+
+    }
+
+};
+
+console.log("Audio Engine v2 Loaded");
