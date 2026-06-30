@@ -1,9 +1,33 @@
 // ======================================
 // Quran Web GPRO
-// Navigation
+// Navigation Engine
 // ======================================
 
-// Tombol Berikutnya
+// ======================================
+// Buka Surat
+// ======================================
+
+window.openSurah = function (surah) {
+
+    // Halaman Mushaf
+    openPage(surah.page);
+
+    // Audio
+    if (surah.audio) {
+        setAudio(surah.audio);
+    }
+
+    // Terjemahan
+    if (typeof loadTranslation === "function") {
+        loadTranslation(surah.id);
+    }
+
+};
+
+// ======================================
+// Berikutnya
+// ======================================
+
 document.getElementById("next").addEventListener("click", function () {
 
     if (Quran.page < 604) {
@@ -14,7 +38,10 @@ document.getElementById("next").addEventListener("click", function () {
 
 });
 
-// Tombol Sebelumnya
+// ======================================
+// Sebelumnya
+// ======================================
+
 document.getElementById("prev").addEventListener("click", function () {
 
     if (Quran.page > 2) {
@@ -24,3 +51,5 @@ document.getElementById("prev").addEventListener("click", function () {
     }
 
 });
+
+console.log("navigation.js loaded");

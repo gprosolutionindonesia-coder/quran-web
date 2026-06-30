@@ -5,6 +5,10 @@
 
 let allSurah = [];
 
+// ======================================
+// Load Data Surat
+// ======================================
+
 async function loadSurah() {
 
     const response = await fetch("data/surah.json");
@@ -21,7 +25,10 @@ async function loadSurah() {
 
         const result = allSurah.filter(function(item){
 
-            return item.name.toLowerCase().includes(keyword);
+            return (
+                item.name.toLowerCase().includes(keyword) ||
+                item.arabic.includes(keyword)
+            );
 
         });
 
@@ -30,6 +37,10 @@ async function loadSurah() {
     });
 
 }
+
+// ======================================
+// Render Daftar Surat
+// ======================================
 
 function renderSurah(data){
 
@@ -45,28 +56,18 @@ function renderSurah(data){
 
         a.className = "list-group-item list-group-item-action";
 
-        a.innerHTML = item.id + ". " + item.name;
+        a.innerHTML =
+            "<b>" + item.id + ".</b> " +
+            item.name +
+            "<br><small>" +
+            item.arabic +
+            "</small>";
 
         a.onclick = function(e){
 
             e.preventDefault();
 
-            console.log("==============================");
-            console.log("Klik Surat :", item.name);
-            console.log("ID Surat   :", item.id);
-            console.log("Halaman    :", item.page);
-            console.log("Audio      :", item.audio);
-
-            // Buka halaman mushaf
-            openPage(item.page);
-
-            // Ganti audio
-            setAudio(item.audio);
-
-            // Muat terjemahan
-            loadTranslation(item.id);
-
-            console.log("loadTranslation dipanggil");
+            openSurah(item);
 
         };
 
