@@ -11,15 +11,19 @@ window.currentSurah = 1;
 
 window.loadTranslation = async function (surahNumber) {
 
-    currentSurah = surahNumber;
+    currentSurah = Number(surahNumber);
 
-    console.log("==============================");
-    console.log("loadTranslation()");
-    console.log("Surah Number :", surahNumber);
+    console.clear();
+
+    console.log("======================================");
+    console.log("LOAD TRANSLATION");
+    console.log("======================================");
+
+    console.log("Surah Number :", currentSurah);
 
     const file =
         "data/translation/id/id_translation_" +
-        surahNumber +
+        currentSurah +
         ".json";
 
     console.log("File :", file);
@@ -27,36 +31,70 @@ window.loadTranslation = async function (surahNumber) {
     const panel = document.getElementById("translationPanel");
 
     panel.innerHTML = `
-        <div class="text-center p-3">
+        <div class="text-center p-4">
+
+            <div class="spinner-border text-success"></div>
+
+            <br><br>
+
             Memuat terjemahan...
+
         </div>
     `;
 
     try {
 
+        console.log("FETCH...");
+
         const response = await fetch(file);
 
-        console.log("Status :", response.status);
+        console.log("HTTP Status :", response.status);
 
         if (!response.ok) {
-            throw new Error("File tidak ditemukan");
+
+            throw new Error(
+                "HTTP " + response.status
+            );
+
         }
 
         const data = await response.json();
 
+        console.log("SUCCESS");
         console.log("Nama Surat :", data.name);
+        console.log("Jumlah Ayat :", data.count);
 
         renderTranslation(data);
 
-    } catch (err) {
+    }
+    catch(err){
 
-        console.error(err);
+        console.error("ERROR :", err);
 
         panel.innerHTML = `
+
             <div class="alert alert-danger">
-                Gagal memuat terjemahan<br>
-                <small>${file}</small>
+
+                <h5>Terjadi Kesalahan</h5>
+
+                <hr>
+
+                <b>File :</b>
+
+                <br>
+
+                ${file}
+
+                <hr>
+
+                <b>Error :</b>
+
+                <br>
+
+                ${err}
+
             </div>
+
         `;
 
     }
@@ -67,48 +105,74 @@ window.loadTranslation = async function (surahNumber) {
 // Render Translation
 // ======================================
 
-function renderTranslation(data) {
+function renderTranslation(data){
 
-    const panel = document.getElementById("translationPanel");
+    console.log("RENDER...");
+
+    const panel =
+        document.getElementById(
+            "translationPanel"
+        );
 
     let html = "";
 
     html += `
-        <h4 class="mb-3">
+
+        <h3 class="mb-2">
+
             📖 ${data.name}
-        </h4>
+
+        </h3>
 
         <div class="text-muted mb-4">
+
             ${data.count} Ayat
+
         </div>
+
     `;
 
-    for (let i = 1; i <= data.count; i++) {
+    for(let i=1;i<=data.count;i++){
 
         html += `
+
         <div class="card mb-3 shadow-sm">
 
             <div class="card-body">
 
-                <span class="badge bg-success mb-2">
+                <span class="badge bg-success">
+
                     Ayat ${i}
+
                 </span>
 
-                <div style="line-height:1.8;font-size:16px;">
-                    ${data.verse["verse_" + i]}
-                </div>
+                <p
+                class="mt-3"
+                style="
+                line-height:2;
+                font-size:17px;
+                ">
+
+                    ${data.verse["verse_"+i]}
+
+                </p>
 
             </div>
 
         </div>
+
         `;
 
     }
 
     panel.innerHTML = html;
 
+    console.log("SELESAI RENDER");
+
 }
 
-loadTranslation(1);
+// ======================================
+// Default
+// ======================================
 
-console.log("translation.js loaded");
+console.log("translation.js berhasil dimuat");
