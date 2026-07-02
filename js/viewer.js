@@ -62,11 +62,9 @@ window.openPage = function(page){
 
     }
 
-    if(page < 2){
-
-        page = 2;
-
-    }
+    if(page < 1){
+    page = 1;
+}
 
     if(page > Quran.totalPages){
 
@@ -76,11 +74,7 @@ window.openPage = function(page){
 
     // Viewer selalu membuka halaman genap
 
-    if(page % 2 !== 0){
 
-        page--;
-
-    }
 
     Quran.page = page;
 

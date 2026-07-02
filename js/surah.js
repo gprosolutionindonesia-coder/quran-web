@@ -27,7 +27,7 @@ async function loadSurah() {
 
             return (
                 item.name.toLowerCase().includes(keyword) ||
-                item.arabic.includes(keyword)
+                (item.arabic || "").includes(keyword)
             );
 
         });
@@ -35,6 +35,18 @@ async function loadSurah() {
         renderSurah(result);
 
     });
+
+}
+
+// ======================================
+// Open Surah
+// ======================================
+
+function openSurah(item){
+
+    Quran.surah = item.id;
+
+    openPage(Number(item.page));
 
 }
 
@@ -60,7 +72,7 @@ function renderSurah(data){
             "<b>" + item.id + ".</b> " +
             item.name +
             "<br><small>" +
-            item.arabic +
+            (item.arabic || "") +
             "</small>";
 
         a.onclick = function(e){
@@ -76,5 +88,7 @@ function renderSurah(data){
     });
 
 }
+
+loadSurah();
 
 console.log("surah.js loaded");
