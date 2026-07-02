@@ -1,6 +1,6 @@
 // ======================================
 // Quran Web GPRO
-// Modul Daftar Surat + Live Search
+// Modul Daftar Surat
 // ======================================
 
 let allSurah = [];
@@ -11,42 +11,47 @@ let allSurah = [];
 
 async function loadSurah() {
 
-    const response = await fetch("data/surah.json");
+    try {
 
-    allSurah = await response.json();
+        const response = await fetch("data/surah.json");
 
-    renderSurah(allSurah);
+        if (!response.ok) {
+            throw new Error("Gagal membaca data surah.json");
+        }
 
-    const search = document.getElementById("searchSurah");
+        allSurah = await response.json();
 
-    search.addEventListener("keyup", function(){
+        renderSurah(allSurah);
 
-        const keyword = this.value.toLowerCase();
+        const search = document.getElementById("searchSurah");
 
-        const result = allSurah.filter(function(item){
+        if (search) {
 
-            return (
-                item.name.toLowerCase().includes(keyword) ||
-                (item.arabic || "").includes(keyword)
-            );
+            search.addEventListener("keyup", function () {
 
-        });
+                const keyword = this.value.trim().toLowerCase();
 
-        renderSurah(result);
+                const result = allSurah.filter(item => {
 
-    });
+                    return (
+                        item.name.toLowerCase().includes(keyword)
+                    );
 
-}
+                });
 
-// ======================================
-// Open Surah
-// ======================================
+                renderSurah(result);
 
-function openSurah(item){
+            });
 
-    Quran.surah = item.id;
+        }
 
-    openPage(Number(item.page));
+        console.log("✔ Data Surah berhasil dimuat.");
+
+    } catch (err) {
+
+        console.error("Surah Error :", err);
+
+    }
 
 }
 
@@ -54,13 +59,18 @@ function openSurah(item){
 // Render Daftar Surat
 // ======================================
 
-function renderSurah(data){
+function renderSurah(data) {
 
     const list = document.getElementById("surahList");
 
+    if (!list) {
+        console.warn("surahList tidak ditemukan.");
+        return;
+    }
+
     list.innerHTML = "";
 
-    data.forEach(function(item){
+    data.forEach(item => {
 
         const a = document.createElement("a");
 
@@ -68,20 +78,17 @@ function renderSurah(data){
 
         a.className = "list-group-item list-group-item-action";
 
-        a.innerHTML =
-            "<b>" + item.id + ".</b> " +
-            item.name +
-            "<br><small>" +
-            (item.arabic || "") +
-            "</small>";
+        a.innerHTML = `
+            <b>${item.id}.</b> ${item.name}
+        `;
 
-        a.onclick = function(e){
+        a.addEventListener("click", function (e) {
 
             e.preventDefault();
 
             openSurah(item);
 
-        };
+        });
 
         list.appendChild(a);
 
@@ -89,35 +96,32 @@ function renderSurah(data){
 
 }
 
-loadSurah();
-
-console.log("surah.js loaded");
 // ======================================
-// Open Surah
+// Buka Surat
 // ======================================
 
-function openSurah(item){
+function openSurah(item) {
+
+    if (!item) return;
 
     Quran.surah = item.id;
 
     let page = Number(item.page);
 
-    // database dimulai dari halaman 1
-    // viewer dimulai dari halaman 2
+    // Database halaman dimulai dari 1
+    // Viewer dimulai dari halaman 2
 
-    page = page + 1;
+    page++;
 
-    if(page % 2 !== 0){
+    // Viewer selalu membuka halaman kiri
+    if (page % 2 !== 0) {
         page--;
     }
 
     openPage(page);
 
     console.log(
-        "Open Surah:",
-        item.name,
-        "Page:",
-        page
+        `Open Surah ${item.id} - ${item.name} | Viewer Page ${page}`
     );
 
 }
