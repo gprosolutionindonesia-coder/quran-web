@@ -17,33 +17,45 @@ const pageNumber = document.getElementById("pageNumber");
 
 window.updatePages = function () {
 
-    const gifPage = getGifPage(Quran.page);
+    // Halaman pertama (Al-Fatihah + Al-Baqarah)
+    if (Quran.page === 1) {
 
-    // Halaman kiri
-    leftPage.src =
-        "Medina1/data/N/" +
-        String(gifPage + 1).padStart(4, "0") +
-        ".gif";
+        rightPage.src = "Medina1/data/N/0004.gif";
+        leftPage.src  = "Medina1/data/N/0005.gif";
 
-    // Halaman kanan
-    rightPage.src =
-        "Medina1/data/N/" +
-        String(gifPage).padStart(4, "0") +
-        ".gif";
+        pageNumber.innerHTML =
+            toArabicNumber(1) +
+            " | " +
+            toArabicNumber(2);
 
-    // Nomor halaman
-    pageNumber.innerHTML =
-        toArabicNumber(Quran.page) +
-        " | " +
-        toArabicNumber(Quran.page + 1);
+    } else {
 
-    // Simpan halaman terakhir
+        const gifPage = getGifPage(Quran.page);
+
+        // Halaman kanan
+        rightPage.src =
+            "Medina1/data/N/" +
+            String(gifPage).padStart(4, "0") +
+            ".gif";
+
+        // Halaman kiri
+        leftPage.src =
+            "Medina1/data/N/" +
+            String(gifPage + 1).padStart(4, "0") +
+            ".gif";
+
+        pageNumber.innerHTML =
+            toArabicNumber(Quran.page) +
+            " | " +
+            toArabicNumber(Quran.page + 1);
+
+    }
+
     saveState();
 
     console.log("==================================");
     console.log("Mushaf Viewer");
     console.log("Page :", Quran.page);
-    console.log("GIF  :", gifPage);
     console.log("==================================");
 
 };
@@ -57,24 +69,16 @@ window.openPage = function(page){
     page = Number(page);
 
     if(isNaN(page)){
-
         return;
-
     }
 
     if(page < 1){
-    page = 1;
-}
-
-    if(page > Quran.totalPages){
-
-        page = Quran.totalPages;
-
+        page = 1;
     }
 
-    // Viewer selalu membuka halaman genap
-
-
+    if(page > Quran.totalPages){
+        page = Quran.totalPages;
+    }
 
     Quran.page = page;
 
@@ -90,6 +94,13 @@ window.openPage = function(page){
 
 window.nextPage = function(){
 
+    if(Quran.page === 1){
+
+        openPage(2);
+        return;
+
+    }
+
     if(Quran.page < Quran.totalPages){
 
         openPage(Quran.page + 2);
@@ -104,11 +115,14 @@ window.nextPage = function(){
 
 window.prevPage = function(){
 
-    if(Quran.page > 2){
+    if(Quran.page <= 2){
 
-        openPage(Quran.page - 2);
+        openPage(1);
+        return;
 
     }
+
+    openPage(Quran.page - 2);
 
 };
 
