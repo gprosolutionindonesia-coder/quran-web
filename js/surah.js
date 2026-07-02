@@ -92,3 +92,32 @@ function renderSurah(data){
 loadSurah();
 
 console.log("surah.js loaded");
+// ======================================
+// Open Surah
+// ======================================
+
+function openSurah(item){
+
+    Quran.surah = item.id;
+
+    let page = Number(item.page);
+
+    // database dimulai dari halaman 1
+    // viewer dimulai dari halaman 2
+
+    page = page + 1;
+
+    if(page % 2 !== 0){
+        page--;
+    }
+
+    openPage(page);
+
+    console.log(
+        "Open Surah:",
+        item.name,
+        "Page:",
+        page
+    );
+
+}
