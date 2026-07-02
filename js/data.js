@@ -1,6 +1,6 @@
 // ======================================
 // Quran Web GPRO
-// Data Engine v2
+// Data Engine v3
 // ======================================
 
 // ======================================
@@ -9,50 +9,32 @@
 
 window.Quran = {
 
-    // ==========================
     // Viewer
-    // ==========================
-
     page: 2,
     totalPages: 604,
     gifOffset: 3,
+    zoom: 1,
 
-    // ==========================
     // Navigation
-    // ==========================
-
     surah: 1,
     juz: 1,
     ayah: 1,
 
-    // ==========================
-    // Viewer
-    // ==========================
-
-    zoom: 1,
-
-    // ==========================
     // Audio
-    // ==========================
-
     audio: new Audio(),
     currentAudio: "",
 
-    // ==========================
     // Bookmark
-    // ==========================
-
     bookmarks: [],
+    bookmarkKey: "quran-bookmarks-v2",
 
-    bookmarkKey: "quran-bookmarks",
-
-    // ==========================
     // History
-    // ==========================
-
     history: [],
+    historyKey: "quran-history-v2",
 
-    historyKey: "quran-history"
+    // Settings
+    darkMode: false,
+    language: "id"
 
 };
 
@@ -86,7 +68,7 @@ window.getGifPage = function(page){
 };
 
 // ======================================
-// Bookmark
+// Bookmark Storage
 // ======================================
 
 window.saveBookmarks = function(){
@@ -118,6 +100,56 @@ window.loadBookmarks = function(){
 };
 
 // ======================================
+// Add Bookmark
+// ======================================
+
+window.addBookmark = function(name){
+
+    const bookmark = {
+
+        id: Date.now(),
+
+        name: name || ("Halaman " + Quran.page),
+
+        page: Quran.page,
+
+        surah: Quran.surah,
+
+        juz: Quran.juz,
+
+        ayah: Quran.ayah,
+
+        created: new Date().toLocaleString()
+
+    };
+
+    Quran.bookmarks.push(bookmark);
+
+    saveBookmarks();
+
+    console.log("Bookmark ditambahkan");
+
+    console.table(bookmark);
+
+};
+
+// ======================================
+// Delete Bookmark
+// ======================================
+
+window.deleteBookmark = function(id){
+
+    Quran.bookmarks = Quran.bookmarks.filter(function(item){
+
+        return item.id !== id;
+
+    });
+
+    saveBookmarks();
+
+};
+
+// ======================================
 // History
 // ======================================
 
@@ -137,7 +169,7 @@ window.addHistory = function(){
 
     });
 
-    if(Quran.history.length > 30){
+    if(Quran.history.length > 100){
 
         Quran.history.pop();
 
@@ -170,6 +202,70 @@ window.loadHistory = function(){
 };
 
 // ======================================
+// Clear History
+// ======================================
+
+window.clearHistory = function(){
+
+    Quran.history = [];
+
+    localStorage.removeItem(
+
+        Quran.historyKey
+
+    );
+
+};
+
+// ======================================
+// Clear Bookmark
+// ======================================
+
+window.clearBookmarks = function(){
+
+    Quran.bookmarks = [];
+
+    saveBookmarks();
+
+};
+
+// ======================================
+// Save State
+// ======================================
+
+window.saveState = function(){
+
+    localStorage.setItem(
+
+        "quran-last-page",
+
+        Quran.page
+
+    );
+
+};
+
+// ======================================
+// Load State
+// ======================================
+
+window.loadState = function(){
+
+    const page = localStorage.getItem(
+
+        "quran-last-page"
+
+    );
+
+    if(page){
+
+        Quran.page = Number(page);
+
+    }
+
+};
+
+// ======================================
 // Init
 // ======================================
 
@@ -177,7 +273,9 @@ loadBookmarks();
 
 loadHistory();
 
+loadState();
+
 console.log("==================================");
 console.log("Quran Web GPRO");
-console.log("Data Engine v2 Loaded");
+console.log("Data Engine v3 Loaded");
 console.log("==================================");
