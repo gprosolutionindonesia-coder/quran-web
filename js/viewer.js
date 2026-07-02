@@ -1,6 +1,6 @@
 // ======================================
 // Quran Web GPRO
-// Viewer Engine v2
+// Viewer Engine v3
 // ======================================
 
 // ======================================
@@ -12,32 +12,39 @@ const rightPage = document.getElementById("rightPage");
 const pageNumber = document.getElementById("pageNumber");
 
 // ======================================
-// Render Viewer
+// Render Mushaf
 // ======================================
 
 window.updatePages = function () {
 
-    const gif = getGifPage(Quran.page);
+    const gifPage = getGifPage(Quran.page);
 
+    // Halaman kiri
     leftPage.src =
         "Medina1/data/N/" +
-        String(gif + 1).padStart(4, "0") +
+        String(gifPage + 1).padStart(4, "0") +
         ".gif";
 
+    // Halaman kanan
     rightPage.src =
         "Medina1/data/N/" +
-        String(gif).padStart(4, "0") +
+        String(gifPage).padStart(4, "0") +
         ".gif";
 
+    // Nomor halaman
     pageNumber.innerHTML =
         toArabicNumber(Quran.page) +
         " | " +
         toArabicNumber(Quran.page + 1);
 
-    console.log(
-        "Viewer Update -> Page:",
-        Quran.page
-    );
+    // Simpan halaman terakhir
+    saveState();
+
+    console.log("==================================");
+    console.log("Mushaf Viewer");
+    console.log("Page :", Quran.page);
+    console.log("GIF  :", gifPage);
+    console.log("==================================");
 
 };
 
@@ -45,17 +52,31 @@ window.updatePages = function () {
 // Open Page
 // ======================================
 
-window.openPage = function (page) {
+window.openPage = function(page){
 
     page = Number(page);
 
-    if (page < 2) page = 2;
+    if(isNaN(page)){
 
-    if (page > Quran.totalPages)
+        return;
+
+    }
+
+    if(page < 2){
+
+        page = 2;
+
+    }
+
+    if(page > Quran.totalPages){
+
         page = Quran.totalPages;
 
-    // Viewer selalu dimulai halaman genap
-    if (page % 2 !== 0) {
+    }
+
+    // Viewer selalu membuka halaman genap
+
+    if(page % 2 !== 0){
 
         page--;
 
@@ -70,10 +91,38 @@ window.openPage = function (page) {
 };
 
 // ======================================
+// Next
+// ======================================
+
+window.nextPage = function(){
+
+    if(Quran.page < Quran.totalPages){
+
+        openPage(Quran.page + 2);
+
+    }
+
+};
+
+// ======================================
+// Previous
+// ======================================
+
+window.prevPage = function(){
+
+    if(Quran.page > 2){
+
+        openPage(Quran.page - 2);
+
+    }
+
+};
+
+// ======================================
 // Zoom
 // ======================================
 
-window.setZoom = function (value) {
+window.setZoom = function(value){
 
     Quran.zoom = value;
 
@@ -83,9 +132,19 @@ window.setZoom = function (value) {
 };
 
 // ======================================
+// Refresh
+// ======================================
+
+window.refreshViewer = function(){
+
+    updatePages();
+
+};
+
+// ======================================
 // Init
 // ======================================
 
-updatePages();
+refreshViewer();
 
-console.log("Viewer Engine v2 Loaded");
+console.log("Viewer Engine v3 Loaded");
